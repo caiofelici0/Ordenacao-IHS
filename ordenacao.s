@@ -9,7 +9,7 @@ main:
     # inicializando 
     push rbp
     mov rbp, rsp
-    sub rsp, 16
+    sub rsp, 48
     # onde tudo acontece
     mov rdi, 5 * 4
     call malloc@plt
@@ -47,43 +47,39 @@ done:
     ret
 
 ordenar_vetor:
+    # inicializando 
+    push rbp
+    mov rbp, rsp
+    sub rsp, 16
     for_i_init:
         mov rcx, 0 # i = 0
     for_i:
         cmp rcx, 4
-        je print_vector_init
-        mov [rbp - 4], rcx # min = i
+        je final_ordenar
+        mov [rbp - 8], rcx # salvando i
+        mov [rbp - 12], rcx # salvando min
         for_j_init:
-            mov r8, [rcx + 1] # j = i + 1
+            mov rdx, rcx
+            add rdx, 1
         for_j:
-            cmp r8, 5
-            je cont_for_i
-            mov rdx, [rip + vector] 
-            mov rdx, [rdx + r8 * 4] # rdx = V[j]
-            mov rdi, [rip + vector] 
-            mov r9, [rbp - 4] # r9 = min
-            cmp rdx, [rdi + r9 * 4] # comparacao V[j] e V[min]
-            jl min_menor_que_j
+            cmp rdx, 5
+            je continuacao_for_i
+            mov [rbp - 16], rdx
+            lea rdi, [rip + print_v]
+            mov rsi, rdx
+            call printf@plt
+            mov rdx, [rbp - 16]
+            inc rdx
             jmp for_j
-    cont_for_i:
-        cmp rcx, [rbp - 4]
-        jne swap
+    continuacao_for_i:
+        mov rcx, [rbp - 8]
         inc rcx
         jmp for_i
+    final_ordenar:
+    # encerrando
+    mov rsp, rbp
+    pop rbp
     ret
-
-min_menor_que_j:
-    mov [rbp - 4], r8
-    jmp for_j
-    
-swap:
-    mov rdx, [rip + vector]
-    mov r9, [rdx + rcx * 4] # V[i]
-    mov r10, [rdx + 
-    mov [rcx, [rbp - 4]
-    mov [rbp - 4], rcx
-    inc rcx
-    jmp for_i
     
 .section .bss
     vector: .8byte  

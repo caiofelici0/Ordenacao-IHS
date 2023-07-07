@@ -6,13 +6,11 @@
 
 .global main
 main:
-    // Prologue (saving stack registers)
     push rbp
     mov rbp, rsp
-    // Printando hello world
+    sub rsp, 16
     lea rdi, [rip + hello_world]
     call printf@plt
-    // Epilogue (restoring stack registers)
     mov rsp, rbp
     pop rbp
     // Returning from call
@@ -20,4 +18,6 @@ main:
 
 .section .rodata
 hello_world:
-    .string "Hello world!\n"
+    .string "Hello world! %u\n"
+
+    
