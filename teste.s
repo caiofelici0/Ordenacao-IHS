@@ -90,13 +90,12 @@ continuacao_for_i:
     mov eax, DWORD PTR [rbp - 44]
     cmp eax, DWORD PTR [rbp - 40]
     je final_for_i
-    mov eax, DWORD PTR [rbp - 40]
     lea rdx, [rax * 4 + 0]
-    mov rax, QWORD PTR [rbp - 8]
+    mov rax, [rip + vector]
     add rdx, rax
-    mov eax, DWORD PTR [rbp - 44]
+    mov eax, DWORD PTR [rbp - 40]
     lea rcx, [rax * 4 + 0]
-    mov rax, QWORD PTR [rbp - 8]
+    mov rax, [rip + vector]
     add rax, rcx
     mov rdi, rax
     mov rsi, rdx

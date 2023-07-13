@@ -37,9 +37,9 @@ int main()
 }
 
 // gcc -Wall -g -pg teste.c -o teste.bin
-// gcc -Wall -g teste.c -o teste.bin
+// gcc -Wall -g sort.c -o sort.bin
 
-// objdump -D -z -M intel teste.bin
+// objdump -d -M intel -S sort.bin
 
 // otimizacao de tempo -On:
 // gcc -Wall -O0 teste.c -o teste.bin
